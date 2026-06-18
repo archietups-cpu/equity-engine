@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pip install *)",
+      "Bash(pip3 install *)",
+      "Bash(python3 *)",
+      "Bash(sed -i '' 's/-> int | None:/-> Optional[int]:/g; s/-> float | None:/-> Optional[float]:/g; s/-> dict\\\\[int, float\\\\]:/-> dict:/g; s/-> list\\\\[dict\\\\]:/-> list:/g; s/-> list\\\\[str\\\\]:/-> list:/g' /Users/archietupper/equity-engine/scraper.py)",
+      "Bash(sed -i '' 's/from typing import Optional/from typing import Optional/' /Users/archietupper/equity-engine/scraper.py)"
+    ]
+  }
+}

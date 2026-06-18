@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Equity Engine</title>
+  <link rel="stylesheet" href="/static/css/style.css"/>
+</head>
+<body>
+
+<!-- ─── SEARCH SCREEN ─────────────────────────────────────────── -->
+<div id="search-screen" class="screen active">
+  <div class="hero">
+    <div class="logo-mark">EE</div>
+    <h1>Equity Engine</h1>
+    <p class="subtitle">Fundamental analysis across 5 pillars — Financial Risk · Cash Generation · Business Quality · Growth Quality · Capital Efficiency</p>
+
+    <!-- Mode toggle -->
+    <div class="mode-toggle">
+      <button id="mode-single" class="mode-btn active">Single</button>
+      <button id="mode-compare" class="mode-btn">Compare</button>
+    </div>
+
+    <!-- Single mode search -->
+    <div id="single-search" class="search-box">
+      <div class="search-input-row">
+        <input id="search-input" type="text" placeholder="Search company (e.g. Unilever, Apple, HSBC)…" autocomplete="off"/>
+        <button id="search-btn" class="search-btn" disabled>Analyse</button>
+      </div>
+      <div id="suggestions" class="suggestions hidden"></div>
+      <p id="search-hint" class="search-hint hidden">Not found on Macrotrends. Try the stock ticker (e.g. KO for Coca-Cola) or a shorter name.</p>
+    </div>
+
+    <!-- Compare mode inputs -->
+    <div id="compare-section" class="compare-section hidden">
+      <div id="compare-slots" class="compare-slots"></div>
+      <div class="compare-actions">
+        <button id="compare-add-btn" class="add-slot-btn">+ Add company</button>
+        <button id="compare-btn" class="search-btn" disabled>Compare All →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── LOADING SCREEN ────────────────────────────────────────── -->
+<div id="loading-screen" class="screen">
+  <div class="loading-wrap">
+    <div class="spinner"></div>
+    <p id="loading-msg">Fetching financial data…</p>
+    <p id="loading-sub" class="loading-sub">Scraping 13 metrics from Macrotrends · This takes ~30 seconds</p>
+  </div>
+</div>
+
+<!-- ─── RESULTS SCREEN ────────────────────────────────────────── -->
+<div id="results-screen" class="screen">
+  <header class="top-bar">
+    <button id="back-btn" class="back-btn">← New Search</button>
+    <div id="company-label" class="company-label"></div>
+  </header>
+
+  <!-- Unsupported sector notice -->
+  <div id="sector-notice" class="sector-notice hidden">
+    <div class="sector-icon">⊘</div>
+    <div class="sector-text">
+      <h3 id="sector-notice-heading">Sector not supported</h3>
+      <p id="sector-notice-msg"></p>
+    </div>
+  </div>
+
+  <!-- Hard stops banner -->
+  <div id="hard-stops-banner" class="hard-stops hidden"></div>
+
+  <!-- Overall score card -->
+  <div id="overall-card" class="overall-card">
+    <div class="score-ring-wrap">
+      <svg class="score-ring" viewBox="0 0 120 120">
+        <circle class="ring-bg" cx="60" cy="60" r="52"/>
+        <circle id="ring-fill" class="ring-fill" cx="60" cy="60" r="52"
+                stroke-dasharray="327" stroke-dashoffset="327"/>
+      </svg>
+      <div class="score-ring-label">
+        <span id="overall-score-num">—</span>
+        <span class="score-denom">/10</span>
+      </div>
+    </div>
+    <div class="overall-info">
+      <div id="recommendation-badge" class="rec-badge">—</div>
+      <div id="years-label" class="years-label"></div>
+      <div id="caps-penalties" class="caps-penalties"></div>
+    </div>
+  </div>
+
+  <!-- Pillar cards grid -->
+  <div class="pillars-grid" id="pillars-grid"></div>
+</div>
+
+<!-- ─── COMPARE SCREEN ──────────────────────────────────────────── -->
+<div id="compare-screen" class="screen">
+  <header class="top-bar">
+    <button id="cmp-back-btn" class="back-btn">← Back</button>
+    <div id="cmp-title" class="company-label"></div>
+  </header>
+
+  <!-- Filter bar -->
+  <div class="cmp-filter-bar">
+    <div class="cmp-filter-group">
+      <span class="filter-label">Signal</span>
+      <div class="sig-btns">
+        <button class="sig-btn active" data-sig="ALL">All</button>
+        <button class="sig-btn" data-sig="BUY">Buy</button>
+        <button class="sig-btn" data-sig="HOLD">Hold</button>
+        <button class="sig-btn" data-sig="SELL">Sell</button>
+      </div>
+    </div>
+    <div class="cmp-filter-group">
+      <span class="filter-label">Min score</span>
+      <div class="pf-inputs">
+        <label class="pf-item">FR <input class="pf-input" type="number" data-pillar="Financial Risk"     min="1" max="10" step="0.5" placeholder="—"/></label>
+        <label class="pf-item">CG <input class="pf-input" type="number" data-pillar="Cash Generation"   min="1" max="10" step="0.5" placeholder="—"/></label>
+        <label class="pf-item">BQ <input class="pf-input" type="number" data-pillar="Business Quality"  min="1" max="10" step="0.5" placeholder="—"/></label>
+        <label class="pf-item">GQ <input class="pf-input" type="number" data-pillar="Growth Quality"    min="1" max="10" step="0.5" placeholder="—"/></label>
+        <label class="pf-item">CE <input class="pf-input" type="number" data-pillar="Capital Efficiency" min="1" max="10" step="0.5" placeholder="—"/></label>
+      </div>
+    </div>
+    <button id="cmp-reset" class="reset-btn">Reset</button>
+  </div>
+
+  <!-- Table rendered by JS -->
+  <div id="compare-table-wrap" class="compare-table-wrap"></div>
+</div>
+
+<script src="/static/js/main.js"></script>
+</body>
+</html>
